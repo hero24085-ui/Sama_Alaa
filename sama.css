@@ -275,7 +275,7 @@ body {
     justify-content: center;
     box-sizing: border-box;
     padding: 20px;
-    background-image: url(../pics/frame.png);
+    background-image: url(frame.png);
         background-position: center;
     /* transform: scale(1.5); */
     background-size: cover;
