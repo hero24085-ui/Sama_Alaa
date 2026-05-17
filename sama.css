@@ -1,0 +1,369 @@
+/* ==========================================================================
+   1. Base Document Layout & Theme
+   ========================================================================== */
+body {
+    background-color: #47151e
+
+; /* Deep Burgundy / Bordeaux */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: hidden; /* Prevent scrolling until envelope is clicked */
+    font-family: 'Arial', sans-serif;
+}
+.lobster-regular {
+  font-family: "Lobster", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.merriweather-sans {
+  font-family: "Merriweather Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+}
+.parisienne-regular {
+  font-family: "Parisienne", cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+/* Typography & Headings */
+.head {
+    font-family: "Fleur De Leah", cursive;
+    font-size: clamp(60px, 8vw, 100px);
+    text-align: center;
+    color: #e5dee2;
+    margin-top: clamp(40px, 5vh, 60px);
+}
+
+.subhead {
+    font-family: "Fleur De Leah", cursive;
+    font-size: clamp(30px, 4vw, 50px);
+    text-align: center;
+    color: #e5dee2;
+    margin-top: 10px;
+    margin-bottom: clamp(20px, 3vh, 40px);
+}
+
+/* Scroll Animation Wrapper States */
+.fade-item {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-item.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   2. White Flash & Envelope Interaction FX
+   ========================================================================== */
+.flash-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #ffffff;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 9999;
+}
+
+.flash-active {
+    animation: flash-sequence 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+@keyframes flash-sequence {
+    0% { opacity: 0; }
+    30% { opacity: 1; } /* Peak white brightness */
+    100% { opacity: 0; }
+}
+
+.env-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    min-height: 540px;
+}
+
+.interactive-wrapper {
+    position: relative;
+    width: 90%;
+    max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Envelope Box Setup */
+.envelope-box {
+    position: relative;
+    cursor: pointer;
+    width: 480px;
+    max-width: 100%;
+    z-index: 30;
+    transition: transform 0.3s ease;
+}
+
+.envelope-box:hover {
+    transform: scale(1.02);
+}
+
+.envelope-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    
+    border-radius: 6px;
+}
+
+.open-text {
+    font-size: 22px;
+    font-family: "Fleur De Leah", cursive;
+    text-align: center;
+    color: #e5dee2;
+    letter-spacing: 1px;
+    margin-top: 25px;
+    animation: textPulse 1.4s infinite alternate;
+}
+
+@keyframes textPulse {
+    from { opacity: 0.4; }
+    to { opacity: 1; }
+}
+
+/* Video Box Setup */
+.video-box {
+    display: none; /* Controlled cleanly by JS mid-flash */
+    width: 480px;
+    max-width: 100%;
+    z-index: 10;
+    margin-bottom: 10px;
+}
+
+.video-box video {
+    width: 100%;
+    height: auto;
+    display: block;
+    
+    border-radius: 6px;
+}
+
+/* ==========================================================================
+   3. Wedding Details Section
+   ========================================================================== */
+.details-section {
+    display: none; /* Kept invisible until animation hook fires */
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.details-section.visible {
+    display: block;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.save {
+    font-size: 28px;
+    font-family: "Lobster", cursive;
+    color: #e5dee2;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+
+/* Cleaned date alignment container */
+.date-row {
+    display: flex;
+    font-family: "Fleur De Leah", cursive;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    font-size: 45px;
+    color: #e5dee2;
+    margin-bottom: 40px;
+}
+
+.bar img, .place img {
+    max-width: 100%;
+    height: auto;
+    margin: 15px auto;
+        transform: scale(1.1);
+}
+
+.venue {
+    font-family: "Lobster", cursive;
+    font-size: 32px;
+    color: #e5dee2;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+.place{
+        width: 100%;
+        
+    height: auto;
+    display: block;
+    border-radius: 6px;
+        transform: scale(1.1);
+}
+
+.placetext {
+    font-size: 24px;
+    font-family: "Merriweather Sans", cursive;
+    color: #e5dee2;
+    margin-top: 40px;
+}
+
+.time {
+    font-size: 22px;
+    font-family: "Merriweather Sans", cursive;
+    color: #e5dee2;
+    margin: 10px 0 30px 0;
+}
+
+.location {
+    display: inline-block;
+    font-size: 20px;
+    padding: 12px 45px;
+    color: #800020;
+    background: #e5dee2;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Parisienne", cursive;
+    text-transform: cubic-case;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.location:hover {
+    transform: scale(1.08);
+    background: #ffffff;
+}
+
+/* ==========================================================================
+   4. Framed Countdown Mechanism (wedd.png)
+   ========================================================================== */
+.countdown-container {
+    
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    width: 380px; /* Keeps the frame proportionally shaped on all screens */
+    height: 420px; /* Gives the text perfect room vertically inside the oval */
+    margin: 50px auto 80px auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 20px;
+    background-image: url(../pics/frame.png);
+        background-position: center;
+    /* transform: scale(1.5); */
+    background-size: cover;
+}
+
+.countdown-title {
+    font-family: "Fleur De Leah", cursive;
+    font-size: 40px;
+    color: #800020;
+    margin-bottom: 30px;
+}
+
+.countdown-row {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+.countdown-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.countdown-box span {
+    font-size: 32px;
+    font-weight: bold;
+    color: #800020;
+    line-height: 1;
+}
+
+.countdown-box .label {
+    font-size: 14px;
+    color: #800020;
+    text-align: center;
+    font-weight: 500;
+}
+
+.slassh img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+    transform: scaleX(1.1);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    align-content: center;
+}
+
+.invit {
+    text-align: center;
+    margin: 20px auto 30px;
+    max-width: 520px;
+}
+
+.invit img {
+    display: block;
+    width: 90%;
+    max-width: 520px;
+    height: auto;
+    margin: 0 auto;
+    transform: scale(1.0);
+    margin-top: 100px;
+    margin-bottom: 20px;
+}
+.location {
+    display: inline-block;
+    font-size: 20px;
+    padding: 12px 45px;
+    color: #800020;
+    background: #e5dee2;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-family: "Parisienne", cursive;
+    text-transform: cubic-case;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.location:hover {
+    transform: scale(1.08);
+    background: #ffffff;
+}    
+
+
+
